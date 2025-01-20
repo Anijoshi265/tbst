@@ -1,0 +1,27 @@
+package javapro;
+
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+	
+
+public class invalid {
+	
+
+		
+
+			public static void main(String args[])throws InterruptedException {
+					WebDriver driver=new ChromeDriver();
+					driver.get("http://lms.nmit.ac.in/moodle/login/index.php");
+					
+					driver.findElement(By.name("username")).sendKeys("275");
+					driver.findElement(By.name("password")).sendKeys("Kavya");
+					driver.findElement(By.id("loginbtn")).submit();
+					Thread.sleep(1000);
+
+		}
+		}
+
+
+
+

@@ -1,0 +1,90 @@
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class FF {
+
+    public static void main(String[] args) {
+        // Initialize the WebDriver (Chrome)
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Navigate to the form page
+            driver.get("https://www.jotform.com/build/242983020566458?s=templates2");
+
+            // Maximize the browser window
+            driver.manage().window().maximize();
+
+            // Wait for the page to load completely
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            // Slow down the form filling
+            Thread.sleep(1000); // Wait for 1 second
+
+            // Fill in text fields
+            driver.findElement(By.id("first_4")).sendKeys("srikanth");
+            Thread.sleep(1000); // Wait for 1 second
+            
+            driver.findElement(By.id("middle_4")).sendKeys("k");
+            Thread.sleep(1000);
+            
+            driver.findElement(By.id("last_4")).sendKeys("s");
+            Thread.sleep(1000);
+
+            // Handle the obstructed element issue for checkboxes
+            WebElement checkbox1 = driver.findElement(By.id("label_input_11_0"));
+
+            // Scroll the element into view
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkbox1);
+            Thread.sleep(500); // Wait for half a second
+            wait.until(ExpectedConditions.elementToBeClickable(checkbox1)).click();
+
+            // Click other checkboxes
+            WebElement checkbox2 = driver.findElement(By.id("label_input_11_1"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkbox2);
+            Thread.sleep(500);
+            wait.until(ExpectedConditions.elementToBeClickable(checkbox2)).click();
+
+            WebElement checkbox3 = driver.findElement(By.id("label_input_11_2"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkbox3);
+            Thread.sleep(500);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkbox3);
+
+            // Fill in additional fields with delays
+            Thread.sleep(1000);
+            driver.findElement(By.id("input_6")).sendKeys("dhananjaynr10@gmail.com");
+            Thread.sleep(1000);
+
+            driver.findElement(By.id("input_5")).sendKeys("27626");
+            Thread.sleep(1000);
+
+            // Handle overlays by hiding them
+            WebElement footer = driver.findElement(By.cssSelector(".formFooter-wrapper"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].style.display='none';", footer);
+            Thread.sleep(1000);
+
+            // Select a course from the dropdown
+            WebElement courseSelect = driver.findElement(By.id("input_7"));
+            courseSelect.sendKeys("Math 101");
+            Thread.sleep(1000);
+
+            // Submit the form
+            WebElement submitButton = driver.findElement(By.id("input_9"));
+            wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+            submitButton.click();
+
+            // Final delay to observe the output
+            Thread.sleep(3000); // Wait 3 seconds before closing the browser
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the browser at the end of the test
+            driver.quit();
+        }
+    }
+}
